@@ -31,14 +31,14 @@ const SignUpContainer = styled.div`
         }
 
         h1 {
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             font-size: 32px;
             font-weight: 700;
             color: #484848;
         }
         
         form {
-            width: 377px;
+            width: 325px;
             margin:  0 auto;
             display: flex;
             flex-direction: column;
@@ -72,7 +72,7 @@ const SignUpContainer = styled.div`
             }
             
             button {
-                padding: 12px;
+                height: 44px;
                 margin-top: 16px;
                 margin-bottom: 8px;
                 background: linear-gradient(to right, #49708A, #88ABC2);
@@ -83,9 +83,30 @@ const SignUpContainer = styled.div`
                 font-size: 16px;
                 font-weight: 500;
                 color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 cursor: pointer;
                 transition: 0.25s;
 
+                .loader {
+                    height: 16px;
+                    width: 16px;
+                    border: 3px solid white;
+                    border-top: 3px solid rgba(0, 0, 0, 0);
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+
+                @keyframes spin {
+                    0% {
+                        transform: rotate(0deg);
+                    }
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
+                
                 :hover {
                     opacity: 0.9;
                 }
@@ -115,6 +136,7 @@ const SignUp = props => {
         email: '',
         password: ''
     });
+    const [fetching, setFetching] = useState(false);
     const [error, setError] = useState('');
     
     const onChange = event => {
@@ -126,15 +148,21 @@ const SignUp = props => {
 
     const onSubmit = event => {
         event.preventDefault();
+        setFetching(true);
         axios.post('https://air-bnb-optimal-price-4.herokuapp.com/api/auth/register', input)
             .then(response => {
                 setInput({
                     email: '',
                     password: ''
                 });
+                setFetching(false);
                 props.history.push('/');
             })
-            .catch(error => setError(error));
+            .catch(error => {
+                console.log(error);
+                setError(error);
+                setFetching(false);
+            });
     };
 
     return (
@@ -152,7 +180,7 @@ const SignUp = props => {
 
                     {error !== '' && <p className='error'>Username taken</p>}
 
-                    <button type='submit'>Sign Up</button>
+                    <button type='submit'>{fetching ? <div className='loader'></div> : <p>Sign Up</p>}</button>
                 </form>
 
                 <Link to='/'><p className='signin'>Already have an account? Sign In</p></Link>
