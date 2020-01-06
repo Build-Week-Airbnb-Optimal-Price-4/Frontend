@@ -10,9 +10,11 @@ const PageNotFoundContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    img {
-        height: 128px;
-        width: 128px;
+    a {
+        img {
+            height: 128px;
+            width: 128px;
+        }
     }
 
     h1 {
@@ -20,34 +22,13 @@ const PageNotFoundContainer = styled.div`
         font-size: 24px;
         font-weight: 700;
     }
-    a {
-        button {
-            width: 325px;
-            padding: 12px 0;
-            background: linear-gradient(to right, #49708A, #88ABC2);
-            border: none;
-            border-radius: 3px;
-            outline: none;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-            color: white;
-            cursor: pointer;
-            transition: 0.25s;
-
-            :hover {
-                opacity: 0.9;
-            }
-        }
-    }
 `
 
 const PageNotFound = () => {
     return (
         <PageNotFoundContainer>
-            <img src={logo} alt='opti logo'/>
+            <Link to='/'><img src={logo} alt='opti logo'/></Link>
             <h1>You must be signed in to view that page...</h1>
-            <Link to='/'><button>Sign In</button></Link>
         </PageNotFoundContainer>
     );
 };

@@ -16,10 +16,9 @@ const App = () => {
 
 			<Route path='/pagenotfound' component={PageNotFound}/>
 			
-			{/* these routes will be private */}
-			<Route path='/dashboard' component={MyListings}/>
-			<Route path='/create' component={CreateListing}/>
-			<Route path='/edit' component={EditListing}/>
+			<PrivateRoute path='/dashboard' component={MyListings}/>
+			<PrivateRoute path='/create' component={CreateListing}/>
+			<PrivateRoute path='/edit' component={EditListing}/>
 		</div>
 	);
 };
