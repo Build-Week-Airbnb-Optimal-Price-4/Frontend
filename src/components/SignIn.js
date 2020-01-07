@@ -2,12 +2,11 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Link} from  'react-router-dom';
 import styled from 'styled-components';
-import background from '../img/background.jpg';
 import logo from '../img/logo.png';
 
 const SignInContainer = styled.div`
     height: 100vh;
-    background-image: url(${background});
+    background: linear-gradient(to right, #88a0ba, #8ccfb9);
     background-size: cover;
     background-position: center;
     display: flex;
@@ -31,14 +30,14 @@ const SignInContainer = styled.div`
         }
 
         h1 {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             font-size: 32px;
             font-weight: 700;
             color: #484848;
         }
         
         form {
-            width: 325px;
+            width: 350px;
             margin:  0 auto;
             display: flex;
             flex-direction: column;
@@ -51,7 +50,7 @@ const SignInContainer = styled.div`
             }
 
             input {
-                padding: 8px 16px;
+                padding: 12px;
                 border: 1px solid darkgray;
                 border-radius: 3px;
                 outline: none;
@@ -72,10 +71,10 @@ const SignInContainer = styled.div`
             }
             
             button {
-                padding: 12px 0;
+                height: 44px;
                 margin-top: 16px;
                 margin-bottom: 8px;
-                background: linear-gradient(to right, #49708A, #88ABC2);
+                background: #6f8399;
                 border: none;
                 border-radius: 3px;
                 outline: none;
@@ -89,7 +88,7 @@ const SignInContainer = styled.div`
                 cursor: pointer;
                 transition: 0.25s;
 
-                .loader {
+                .spinning-wheel {
                     height: 16px;
                     width: 16px;
                     border: 3px solid white;
@@ -109,6 +108,7 @@ const SignInContainer = styled.div`
 
                 :hover {
                     opacity: 0.9;
+                    box-shadow: none;
                 }
             }
         }
@@ -149,9 +149,9 @@ const SignIn = props => {
     const onSubmit = event => {
         event.preventDefault();
         setFetching(true);
-        axios.post('https://air-bnb-optimal-price-4.herokuapp.com/api/auth/login', input)
+        axios.post('https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/auth/login', input)
             .then(response => {
-                localStorage.setItem(response.data.user_id, 'user_id');
+                localStorage.setItem('user_id', response.data.user_id);
                 setInput({
                     email: '',
                     password: ''
@@ -178,9 +178,9 @@ const SignIn = props => {
                     <label className='password' htmlFor='password'>Password</label>
                     <input name='password' type='password' placeholder='Enter password' value={input.password} onChange={onChange}/>
                     
-                    {error !== '' && <p className='error'>Invalid credentials</p>}
+                    {error !== '' && <p className='error'>Wrong email or password</p>}
 
-                    <button type='submit'>{fetching ? <div className='loader'></div> : <p>Sign In</p>}</button>
+                    <button type='submit'>{fetching ? <div className='spinning-wheel'></div> : <p>Sign In</p>}</button>
                 </form>
 
                 <Link to='/signup'><p className='signup'>Don't have an account? Sign Up</p></Link>

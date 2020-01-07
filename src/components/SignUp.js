@@ -3,7 +3,6 @@ import axios from 'axios';
 import {Link} from  'react-router-dom';
 import styled from 'styled-components';
 import background from '../img/background.jpg';
-import logo from '../img/logo.png';
 
 const SignUpContainer = styled.div`
     height: 100vh;
@@ -25,20 +24,15 @@ const SignUpContainer = styled.div`
         justify-content: center;
         align-items: center;
 
-        img {
-            height: 64px;
-            width: 64px;
-        }
-
         h1 {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             font-size: 32px;
             font-weight: 700;
             color: #484848;
         }
         
         form {
-            width: 325px;
+            width: 350px;
             margin:  0 auto;
             display: flex;
             flex-direction: column;
@@ -51,7 +45,7 @@ const SignUpContainer = styled.div`
             }
 
             input {
-                padding: 8px 16px;
+                padding: 12px;
                 border: 1px solid darkgray;
                 border-radius: 3px;
                 outline: none;
@@ -75,7 +69,7 @@ const SignUpContainer = styled.div`
                 height: 44px;
                 margin-top: 16px;
                 margin-bottom: 8px;
-                background: linear-gradient(to right, #49708A, #88ABC2);
+                background: #637488;
                 border: none;
                 border-radius: 3px;
                 outline: none;
@@ -89,7 +83,7 @@ const SignUpContainer = styled.div`
                 cursor: pointer;
                 transition: 0.25s;
 
-                .loader {
+                .spinning-wheel {
                     height: 16px;
                     width: 16px;
                     border: 3px solid white;
@@ -149,7 +143,7 @@ const SignUp = props => {
     const onSubmit = event => {
         event.preventDefault();
         setFetching(true);
-        axios.post('https://air-bnb-optimal-price-4.herokuapp.com/api/auth/register', input)
+        axios.post('https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/auth/register', input)
             .then(response => {
                 setInput({
                     email: '',
@@ -168,7 +162,6 @@ const SignUp = props => {
     return (
         <SignUpContainer>
             <div className='container'>
-                <img src={logo} alt='opti logo'/>
                 <h1>Sign Up</h1>
 
                 <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
@@ -180,7 +173,7 @@ const SignUp = props => {
 
                     {error !== '' && <p className='error'>Username taken</p>}
 
-                    <button type='submit'>{fetching ? <div className='loader'></div> : <p>Sign Up</p>}</button>
+                    <button type='submit'>{fetching ? <div className='spinning-wheel'></div> : <p>Sign Up</p>}</button>
                 </form>
 
                 <Link to='/'><p className='signin'>Already have an account? Sign In</p></Link>
