@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Link} from  'react-router-dom';
 import styled from 'styled-components';
-import background from '../img/background.jpg';
 import logo from '../img/logo.png';
 
 const SignInContainer = styled.div`
@@ -72,7 +71,7 @@ const SignInContainer = styled.div`
             }
             
             button {
-                padding: 12px 0;
+                height: 44px;
                 margin-top: 16px;
                 margin-bottom: 8px;
                 background: #6f8399;
@@ -89,7 +88,7 @@ const SignInContainer = styled.div`
                 cursor: pointer;
                 transition: 0.25s;
 
-                .loader {
+                .spinning-wheel {
                     height: 16px;
                     width: 16px;
                     border: 3px solid white;
@@ -150,9 +149,8 @@ const SignIn = props => {
     const onSubmit = event => {
         event.preventDefault();
         setFetching(true);
-        axios.post('https://air-bnb-optimal-price-4.herokuapp.com/api/auth/login', input)
+        axios.post('https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/auth/login', input)
             .then(response => {
-                console.log(response);
                 localStorage.setItem('user_id', response.data.user_id);
                 setInput({
                     email: '',
@@ -180,9 +178,9 @@ const SignIn = props => {
                     <label className='password' htmlFor='password'>Password</label>
                     <input name='password' type='password' placeholder='Enter password' value={input.password} onChange={onChange}/>
                     
-                    {error !== '' && <p className='error'>Invalid credentials</p>}
+                    {error !== '' && <p className='error'>Wrong email or password</p>}
 
-                    <button type='submit'>{fetching ? <div className='loader'></div> : <p>Sign In</p>}</button>
+                    <button type='submit'>{fetching ? <div className='spinning-wheel'></div> : <p>Sign In</p>}</button>
                 </form>
 
                 <Link to='/signup'><p className='signup'>Don't have an account? Sign Up</p></Link>

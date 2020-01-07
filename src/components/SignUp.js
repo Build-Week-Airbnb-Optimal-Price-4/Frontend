@@ -83,7 +83,7 @@ const SignUpContainer = styled.div`
                 cursor: pointer;
                 transition: 0.25s;
 
-                .loader {
+                .spinning-wheel {
                     height: 16px;
                     width: 16px;
                     border: 3px solid white;
@@ -143,7 +143,7 @@ const SignUp = props => {
     const onSubmit = event => {
         event.preventDefault();
         setFetching(true);
-        axios.post('https://air-bnb-optimal-price-4.herokuapp.com/api/auth/register', input)
+        axios.post('https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/auth/register', input)
             .then(response => {
                 setInput({
                     email: '',
@@ -173,7 +173,7 @@ const SignUp = props => {
 
                     {error !== '' && <p className='error'>Username taken</p>}
 
-                    <button type='submit'>{fetching ? <div className='loader'></div> : <p>Sign Up</p>}</button>
+                    <button type='submit'>{fetching ? <div className='spinning-wheel'></div> : <p>Sign Up</p>}</button>
                 </form>
 
                 <Link to='/'><p className='signin'>Already have an account? Sign In</p></Link>
