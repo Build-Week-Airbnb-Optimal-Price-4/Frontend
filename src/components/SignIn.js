@@ -7,7 +7,7 @@ import logo from '../img/logo.png';
 
 const SignInContainer = styled.div`
     height: 100vh;
-    background-image: url(${background});
+    background: linear-gradient(to right, #88a0ba, #8ccfb9);
     background-size: cover;
     background-position: center;
     display: flex;
@@ -31,14 +31,14 @@ const SignInContainer = styled.div`
         }
 
         h1 {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             font-size: 32px;
             font-weight: 700;
             color: #484848;
         }
         
         form {
-            width: 325px;
+            width: 350px;
             margin:  0 auto;
             display: flex;
             flex-direction: column;
@@ -51,7 +51,7 @@ const SignInContainer = styled.div`
             }
 
             input {
-                padding: 8px 16px;
+                padding: 12px;
                 border: 1px solid darkgray;
                 border-radius: 3px;
                 outline: none;
@@ -75,7 +75,7 @@ const SignInContainer = styled.div`
                 padding: 12px 0;
                 margin-top: 16px;
                 margin-bottom: 8px;
-                background: linear-gradient(to right, #49708A, #88ABC2);
+                background: #6f8399;
                 border: none;
                 border-radius: 3px;
                 outline: none;
@@ -109,6 +109,7 @@ const SignInContainer = styled.div`
 
                 :hover {
                     opacity: 0.9;
+                    box-shadow: none;
                 }
             }
         }
@@ -151,7 +152,8 @@ const SignIn = props => {
         setFetching(true);
         axios.post('https://air-bnb-optimal-price-4.herokuapp.com/api/auth/login', input)
             .then(response => {
-                localStorage.setItem(response.data.user_id, 'user_id');
+                console.log(response);
+                localStorage.setItem('user_id', response.data.user_id);
                 setInput({
                     email: '',
                     password: ''
