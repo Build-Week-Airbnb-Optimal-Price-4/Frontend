@@ -25,7 +25,7 @@ const SignUpContainer = styled.div`
         align-items: center;
 
         h1 {
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             font-size: 32px;
             font-weight: 700;
             color: #484848;
@@ -33,10 +33,8 @@ const SignUpContainer = styled.div`
         
         form {
             width: 350px;
-            margin:  0 auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             
             label {
                 font-size: 16px;
@@ -153,7 +151,7 @@ const SignUp = props => {
                 props.history.push('/');
             })
             .catch(error => {
-                console.log(error);
+                console.log(error.response.data.msg);
                 setError(error);
                 setFetching(false);
             });

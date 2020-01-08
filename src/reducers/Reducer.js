@@ -1,5 +1,6 @@
 const initialState = {
-    listings: []
+    listings: [],
+    modal: false
 };
 
 export const reducer = (state = initialState, action) => {
@@ -8,6 +9,12 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 listings: action.payload
+            };
+
+        case 'TOGGLE_MODAL':
+            return {
+                ...state,
+                modal: !state.modal
             };
         
         default:
