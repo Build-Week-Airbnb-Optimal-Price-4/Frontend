@@ -349,7 +349,7 @@ const MyListings = props => {
                     </div>
 
                     {props.listings.map(item => (
-                        <div className='listing' key={item.id}>
+                        <div className='listing' key={item.id} onClick={() => props.history.push(`/listing/${item.id}`)}>
                             <div className='listing-image' style={{background: `url(${item.listing_url})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
                                 <div className='actions'>
                                     <i className="fas fa-pen"></i>
