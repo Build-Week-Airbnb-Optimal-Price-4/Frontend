@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {getListings} from '../actions/Actions'
+import {getListings, toggleModal, deleteListing} from '../actions/Actions';
+import AddListing from './AddListing';
 import axios from 'axios';
 import styled from 'styled-components';
 import logo from '../img/logo.png';
@@ -10,56 +11,6 @@ axios.defaults.withCredentials = true;
 const MyListingsContainer = styled.div`
     width: 1024px;
     margin: 0 auto;
-
-    .create-listing-modal {
-        height: 475px;
-        width: 441px;
-        margin: auto;
-        background: white;
-        border-radius: 3px;
-        box-shadow: 0 0 0 100vw rgba(0,0,0,0.5);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-
-        h3 {
-            margin-bottom: 16px;
-            font-size: 24px;
-            font-weight: 700;
-            color: #484848; 
-        }
-
-        .buttons {
-            width: 350px;
-            display: flex;
-            justify-content: space-evenly;
-
-            button {
-                padding: 12px 32px;
-                background: linear-gradient(to right, #88a0ba, #8ccfb9);
-                border: none;
-                border-radius: 3px;
-                outline: none;
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                font-family: 'Quicksand', sans-serif;
-                font-size: 16px;
-                font-weight: 500;
-                color: white;
-                cursor: pointer;
-                transition: 0.25s;
-    
-                :hover {
-                    box-shadow: none;
-                } 
-            }
-        }
-    }
 
     header {
         height: 10vh;
@@ -171,7 +122,6 @@ const MyListingsContainer = styled.div`
                 border-bottom-right-radius: 3px;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 transition: 0.25s;
-                cursor: pointer;
 
                 .listing-image {
                     height: 200px;
@@ -213,6 +163,7 @@ const MyListingsContainer = styled.div`
                     height: 90px;
                     width: 320px;
                     padding: 16px;
+                    cursor: pointer;
 
                     .city {
                         font-size: 14px;
@@ -272,18 +223,9 @@ const MyListings = props => {
             .catch(error => console.log(error));
     };
 
-    const deleteListingOnClick = id => {
-        axios.delete(`https://air-bnb-optimal-price-4.herokuapp.com/api/listings/${id}`)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
-    };
-
     return (
         <MyListingsContainer>
-            {createListingModal && <div className='create-listing-modal'>
-                <button onClick={() => setCreateListingModal(false)}>Cancel</button>
-                <button>Add</button>
-            </div>}
+            {props.modal && <AddListing/>}
 
             <header>
                 <div>
@@ -298,7 +240,7 @@ const MyListings = props => {
                         <h2>My Listings</h2>
                         <p>We use historical data to determine the optimal price for your AirBnB listing.</p>
                     </div>
-                    <button onClick={() => setCreateListingModal(true)}>+ Add New Listing</button>
+                    <button onClick={() => props.toggleModal()}>+ Add New Listing</button>
                 </div>
                 
                 <h3>Stays</h3>
@@ -349,17 +291,17 @@ const MyListings = props => {
                     </div>
 
                     {props.listings.map(item => (
-                        <div className='listing' key={item.id} onClick={() => props.history.push(`/listing/${item.id}`)}>
-                            <div className='listing-image' style={{background: `url(${item.listing_url})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                        <div className='listing' key={item.id}>
+                            <div className='listing-image' style={{background: `url(${item.image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
                                 <div className='actions'>
                                     <i className="fas fa-pen"></i>
-                                    <i className="fas fa-trash"></i>
+                                    <i className="fas fa-trash" onClick={() => props.deleteListing(item.id)}></i>
                                 </div>
                             </div>
-                            <div className='listing-information'>
+                            <div className='listing-information' onClick={() => props.history.push(`/listing/${item.id}`)}>
                                 <p className='city'>{item.city}</p>
-                                <p className='title'>{item.minimum_nights} {item.room_type}</p>
-                                <p className='price'><b>${item.prediction}</b> / night</p>
+                                <p className='title'>{item.title}</p>
+                                <p className='price'><b>${item.price}</b> / night</p>
                             </div>
                         </div>
                     ))}
@@ -388,8 +330,9 @@ const MyListings = props => {
 
 const mapStateToProps = state => {
     return {
-        listings: state.listings
+        listings: state.listings,
+        modal: state.modal
     };
-}
+};
 
-export default connect(mapStateToProps, {getListings})(MyListings);
+export default connect(mapStateToProps, {getListings, toggleModal, deleteListing})(MyListings);

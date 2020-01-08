@@ -1,26 +1,31 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {PrivateRoute} from './components/PrivateRoute';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import PageNotFound from './components/PageNotFound';
+import YouMustBeSignedInToViewThatPage from './components/YouMustBeSignedInToViewThatPage';
 import MyListings from './components/MyListings';
-import CreateListing from './components/CreateListing';
+import AddListing from './components/AddListing';
 import EditListing from './components/EditListing';
 import Listing from './components/Listing';
+import PageNotFound from './components/PageNotFound';
 
 const App = () => {
 	return (
 		<div className='App'>
-			<Route exact path='/' component={SignIn}/>
-			<Route path='/signup' component={SignUp}/>
+			<Switch>
+				<Route exact path='/' component={SignIn}/>
+				<Route path='/signup' component={SignUp}/>
+				
+				<Route path='/pagenotfound' component={YouMustBeSignedInToViewThatPage}/>
+				
+				<PrivateRoute path='/dashboard' component={MyListings}/>
+				<PrivateRoute path='/add' component={AddListing}/>
+				<PrivateRoute path='/edit' component={EditListing}/>
+				<PrivateRoute path='/listing/:id' component={Listing}/>
 			
-			<Route path='/pagenotfound' component={PageNotFound}/>
-			
-			<PrivateRoute path='/dashboard' component={MyListings}/>
-			<PrivateRoute path='/create' component={CreateListing}/>
-			<PrivateRoute path='/edit' component={EditListing}/>
-			<PrivateRoute path='/listing/:id' component={Listing}/>
+				<Route component={PageNotFound}/>
+			</Switch>
 		</div>
 	);
 };

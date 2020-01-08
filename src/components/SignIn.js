@@ -160,6 +160,7 @@ const SignIn = props => {
                 props.history.push('/dashboard');
             })
             .catch(error => {
+                console.log(error.response.data.msg);
                 setError(error);
                 setFetching(false);
             });

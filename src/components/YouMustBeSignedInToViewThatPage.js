@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../img/logo.png';
 
-const PageNotFoundContainer = styled.div`
+const YouMustBeSignedInToViewThatPageContainer = styled.div`
     height: 90vh;
     display: flex;
     flex-direction: column;
@@ -24,13 +24,13 @@ const PageNotFoundContainer = styled.div`
     }
 `
 
-const PageNotFound = () => {
+const YouMustBeSignedInToViewThatPage = () => {
     return (
-        <PageNotFoundContainer>
+        <YouMustBeSignedInToViewThatPageContainer>
             <Link to='/'><img src={logo} alt='opti logo'/></Link>
-            <h1>404: Page not found</h1>
-        </PageNotFoundContainer>
+            <h1>You must be signed in to view that page</h1>
+        </YouMustBeSignedInToViewThatPageContainer>
     );
 };
 
-export default PageNotFound;
+export default YouMustBeSignedInToViewThatPage;
