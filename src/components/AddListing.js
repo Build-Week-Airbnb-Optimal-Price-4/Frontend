@@ -109,7 +109,7 @@ const AddListing = props => {
             <h3>Add Listing</h3>
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
                 <label htmlFor='image'>Image</label>
-                <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange} required/>
+                <input name='image' type='url' placeholder='Enter image url' value={input.image} onChange={onChange} required/>
 
                 <label htmlFor='title'>Title</label>
                 <input name='title' type='text' placeholder='Enter title' value={input.title} onChange={onChange} required/>
