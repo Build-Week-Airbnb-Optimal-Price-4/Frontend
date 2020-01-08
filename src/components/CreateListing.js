@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import * as yup from 'yup';
 
 const ListingForm = styled.form`
     display: flex;
@@ -24,6 +25,16 @@ const ListingFormSubmit = styled.input`
     margin: 10% auto auto;
     width: 50%;
 `
+
+let schema = yup.object().shape({
+    listing_url: yup.string().url(),
+    city: yup.string().required(),
+    minimum_nights: yup
+        .number()
+        .required()
+        .positive()
+        .integer(),
+});
 
 const CreateListing = () => {
 
@@ -51,24 +62,19 @@ const CreateListing = () => {
                     .catch(err => {
                         console.log(err);
                     })
+                
             }}>
                 <label htmlFor='listingUrl'>
                     Listing URL: <br/>
                     <input 
-                    maxLength='15'
                     placeholder='Enter url'
                     name='listingUrl'
                     type='text'
                     value={listingUrl}
                     onChange={event => {
                         setListingUrl(event.target.value);
-                        if(!event.target.value || event.target.value.length < 3) {
-                            
-                        }
-                        if(!event.target.value.includes('.com')) {
-                            
-                        }
                     }}
+                    required
                     />
                 </label>
 
@@ -83,6 +89,7 @@ const CreateListing = () => {
                     onChange={event => {
                         setCity(event.target.value);
                     }}
+                    required
                     />
                 </label>
 
@@ -93,7 +100,8 @@ const CreateListing = () => {
                     id='roomTypeInput'
                     onChange={event => {
                         setRoomType(event.target.value);
-                    }}>
+                    }}
+                    >
                         <option>Cottage</option>
                         <option>Hotel</option>
                         <option>House</option>
@@ -104,14 +112,16 @@ const CreateListing = () => {
                 <label htmlFor='nightsInput'>
                     Number of Nights: <br/>
                     <input 
-                    maxLength='3'
                     placeholder='nights'
                     name='nights'
-                    type='text'
+                    type='number'
+                    min='1'
+                    max='365'
                     id='nightsInput'
                     onChange={event => {
                         setNights(event.target.value);
                     }}
+                    required
                     />
                 </label>
 
