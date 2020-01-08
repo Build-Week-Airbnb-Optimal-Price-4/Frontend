@@ -31,17 +31,14 @@ const ListH1 = styled.h1`
 `
 
 const Listing = props => {
-
     const [listing, setListing] = useState({});
 
     useEffect(() => {
-        axios
-            .get(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${localStorage.getItem('user_id')}`)
+        axios.get(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${localStorage.getItem('user_id')}`)
             .then(response => {
-                let listInfo = response.data[props.match.params.id - 1];
-                console.log(listInfo);
-                setListing(listInfo);
-            });
+                setListing(response.data.find(item => item.id == props.match.params.id));
+            })
+            .catch(error => console.log('getListings in listing component', error));
     }, []);
 
     return (
