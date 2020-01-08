@@ -1,4 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {getListings} from '../actions/Actions'
 import axios from 'axios';
 import styled from 'styled-components';
 import logo from '../img/logo.png';
@@ -8,6 +10,56 @@ axios.defaults.withCredentials = true;
 const MyListingsContainer = styled.div`
     width: 1024px;
     margin: 0 auto;
+
+    .create-listing-modal {
+        height: 475px;
+        width: 441px;
+        margin: auto;
+        background: white;
+        border-radius: 3px;
+        box-shadow: 0 0 0 100vw rgba(0,0,0,0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        h3 {
+            margin-bottom: 16px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #484848; 
+        }
+
+        .buttons {
+            width: 350px;
+            display: flex;
+            justify-content: space-evenly;
+
+            button {
+                padding: 12px 32px;
+                background: linear-gradient(to right, #88a0ba, #8ccfb9);
+                border: none;
+                border-radius: 3px;
+                outline: none;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                font-family: 'Quicksand', sans-serif;
+                font-size: 16px;
+                font-weight: 500;
+                color: white;
+                cursor: pointer;
+                transition: 0.25s;
+    
+                :hover {
+                    box-shadow: none;
+                } 
+            }
+        }
+    }
 
     header {
         height: 10vh;
@@ -39,7 +91,7 @@ const MyListingsContainer = styled.div`
             outline: none;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             font-family: 'Quicksand', sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
             color: white;
             cursor: pointer;
@@ -52,7 +104,8 @@ const MyListingsContainer = styled.div`
     }
 
     section {
-        margin: 64px 0;
+        margin-top: 64px;
+        margin-bottom: 128px;
 
         .tab {
             margin-bottom: 32px;
@@ -81,7 +134,7 @@ const MyListingsContainer = styled.div`
                 outline: none;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 font-family: 'Quicksand', sans-serif;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: 500;
                 color: white;
                 cursor: pointer;
@@ -109,10 +162,10 @@ const MyListingsContainer = styled.div`
         .listings-container {
             margin-bottom: 32px;
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
 
             .listing {
+                margin-right: 32px;
                 margin-bottom: 32px;
                 border-bottom-left-radius: 3px;
                 border-bottom-right-radius: 3px;
@@ -157,6 +210,8 @@ const MyListingsContainer = styled.div`
                 }
 
                 .listing-information {
+                    height: 90px;
+                    width: 320px;
                     padding: 16px;
 
                     .city {
@@ -169,6 +224,9 @@ const MyListingsContainer = styled.div`
                         font-size: 16px;
                         font-weight: 500;
                         color: #484848;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
 
                     .price {
@@ -182,15 +240,27 @@ const MyListingsContainer = styled.div`
                     box-shadow: none;
                 }
             }
+
+            .listing:nth-child(3n) {
+                margin-right: 0;
+            }
+        }
+
+        .no-listings {
+            margin-top: 48px;
+            margin-bottom: 64px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #484848;
         }
     }
 `
 
 const MyListings = props => {
+    const [createListingModal, setCreateListingModal] = useState(false); 
+
     useEffect(() => {
-        axios.get(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${localStorage.getItem('user_id')}`)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+        props.getListings();
     }, []);
 
     const signOutOnClick = () => {
@@ -202,8 +272,19 @@ const MyListings = props => {
             .catch(error => console.log(error));
     };
 
+    const deleteListingOnClick = id => {
+        axios.delete(`https://air-bnb-optimal-price-4.herokuapp.com/api/listings/${id}`)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+    };
+
     return (
         <MyListingsContainer>
+            {createListingModal && <div className='create-listing-modal'>
+                <button onClick={() => setCreateListingModal(false)}>Cancel</button>
+                <button>Add</button>
+            </div>}
+
             <header>
                 <div>
                     <img src={logo} alt='opti logo'/>
@@ -217,13 +298,14 @@ const MyListings = props => {
                         <h2>My Listings</h2>
                         <p>We use historical data to determine the optimal price for your AirBnB listing.</p>
                     </div>
-                    <button>+ Add New Listing</button>
+                    <button onClick={() => setCreateListingModal(true)}>+ Add New Listing</button>
                 </div>
                 
                 <h3>Stays</h3>
-                <p className='location-description'>3 stays</p>
+                <p className='location-description'>{props.listings.length + 3} stays</p>
                 
                 <div className='listings-container'>
+                    
                     <div className='listing'>
                         <div className='listing-image' style={{background: `url(https://a0.muscache.com/im/pictures/2364299/9fecde4e_original.jpg?aki_policy=xx_large)`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
                             <div className='actions'>
@@ -233,8 +315,8 @@ const MyListings = props => {
                         </div>
                         <div className='listing-information'>
                             <p className='city'>Berlin</p>
-                            <p className='title'>Apartment in City Center of Berlin</p>
-                            <p className='price'><b>$97</b> / night</p>
+                            <p className='title'>Adorable apartment in the City Center of Berlin</p>
+                            <p className='price'><b>$10</b> / night</p>
                         </div>
                     </div>
 
@@ -247,8 +329,8 @@ const MyListings = props => {
                         </div>
                         <div className='listing-information'>
                             <p className='city'>Berlin</p>
-                            <p className='title'>Apartment in City Center of Berlin</p>
-                            <p className='price'><b>$97</b> / night</p>
+                            <p className='title'>Cosy studio in the heart of Charlottenburg</p>
+                            <p className='price'><b>$39</b> / night</p>
                         </div>
                     </div>
 
@@ -261,17 +343,53 @@ const MyListings = props => {
                         </div>
                         <div className='listing-information'>
                             <p className='city'>Berlin</p>
-                            <p className='title'>Apartment in City Center of Berlin</p>
-                            <p className='price'><b>$97</b> / night</p>
+                            <p className='title'>Quiet & Small (LINDEMANN´S)</p>
+                            <p className='price'><b>$49</b> / night</p>
                         </div>
                     </div>
+
+                    {props.listings.map(item => (
+                        <div className='listing' key={item.id}>
+                            <div className='listing-image' style={{background: `url(${item.listing_url})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                                <div className='actions'>
+                                    <i className="fas fa-pen"></i>
+                                    <i className="fas fa-trash"></i>
+                                </div>
+                            </div>
+                            <div className='listing-information'>
+                                <p className='city'>{item.city}</p>
+                                <p className='title'>{item.minimum_nights} {item.room_type}</p>
+                                <p className='price'><b>${item.prediction}</b> / night</p>
+                            </div>
+                        </div>
+                    ))}
+
                 </div>
+
+                {props.listings.length === 0 && <p className='no-listings'>Add a stay to see it here!</p>}
 
                 <h3>Experiences</h3>
                 <p className='location-description'>0 experiences</p>
+
+                <p className='no-listings'>Add an experience to see it here!</p>
+
             </section>
+
+            {createListingModal === true && <div className='create-listing-modal'>
+                <h3>Add Listing</h3>
+                <div className='buttons'>
+                    <button onClick={() => setCreateListingModal(false)}>Cancel</button>
+                    <button>Add</button>
+                </div>
+            </div>}
         </MyListingsContainer>
     );
 };
 
-export default MyListings;
+const mapStateToProps = state => {
+    return {
+        listings: state.listings
+    };
+}
+
+export default connect(mapStateToProps, {getListings})(MyListings);
