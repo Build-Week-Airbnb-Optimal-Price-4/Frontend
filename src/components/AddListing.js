@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {toggleModal, addListing, getListings} from '../actions/Actions';
 import axios from 'axios';
 import styled from 'styled-components';
+import OnLoad from './OnLoad';
 
 axios.defaults.withCredentials = true;
 
@@ -97,16 +98,27 @@ const AddListing = props => {
         });
     };
 
+    const load = () => {
+        let loadingItem = document.querySelector('.loading');
+        loadingItem.style.display = 'block';
+        setTimeout(() => { 
+            props.addListing(input)
+            loadingItem.style.display = 'none';
+        }, 3000);
+    }
+
     const onSubmit = (event) => {
         event.preventDefault();
         console.log('input', input);
-        props.addListing(input);
+        load();
+        
         // do not need to reset input, component does it by itself
     };
 
     return (
         <AddListingContainer>
             <h3>Add Listing</h3>
+            <OnLoad />
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
                 <label htmlFor='image'>Image</label>
                 <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange} required/>

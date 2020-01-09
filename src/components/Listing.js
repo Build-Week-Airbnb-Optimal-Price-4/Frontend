@@ -39,7 +39,7 @@ const Listing = props => {
             .get(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${localStorage.getItem('user_id')}`)
             .then(response => {
                 let listInfo = response.data[props.match.params.id - 1];
-                console.log(listInfo);
+                console.log(response);
                 setListing(listInfo);
             });
     }, []);
