@@ -1,6 +1,15 @@
 const initialState = {
     listings: [],
-    modal: false
+    addListingModal: false,
+    createListingModal: false,
+    editListingModal:  false,
+    editListingModalInput: {
+        image: '',
+        title: '',
+        city: '',
+        price: 0,
+        user_id: localStorage.getItem('user_id')
+    }
 };
 
 export const reducer = (state = initialState, action) => {
@@ -11,10 +20,22 @@ export const reducer = (state = initialState, action) => {
                 listings: action.payload
             };
 
-        case 'TOGGLE_MODAL':
+        case 'TOGGLE_ADD_LISTING_MODAL':
             return {
                 ...state,
-                modal: !state.modal
+                addListingModal: !state.addListingModal
+            };
+
+        case 'TOGGLE_EDIT_LISTING_MODAL':
+            return {
+                ...state,
+                editListingModal: !state.editListingModal
+            };
+
+        case 'UPDATE_EDIT_LISTING_MODAL_INPUT':
+            return {
+                ...state,
+                editListingModalInput: action.payload
             };
         
         default:

@@ -5,8 +5,6 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import YouMustBeSignedInToViewThatPage from './components/YouMustBeSignedInToViewThatPage';
 import MyListings from './components/MyListings';
-import AddListing from './components/AddListing';
-import EditListing from './components/EditListing';
 import Listing from './components/Listing';
 import PageNotFound from './components/PageNotFound';
 
@@ -20,8 +18,6 @@ const App = () => {
 				<Route path='/pagenotfound' component={YouMustBeSignedInToViewThatPage}/>
 				
 				<PrivateRoute path='/dashboard' component={MyListings}/>
-				<PrivateRoute path='/add' component={AddListing}/>
-				<PrivateRoute path='/edit' component={EditListing}/>
 				<PrivateRoute path='/listing/:id' component={Listing}/>
 			
 				<Route component={PageNotFound}/>
