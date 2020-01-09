@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {toggleAddListingModal, addListing, getListings} from '../actions/Actions';
 import axios from 'axios';
 import styled from 'styled-components';
+import OnLoad from './OnLoad';
+import { TweenMax } from 'gsap';
 
 axios.defaults.withCredentials = true;
 
@@ -173,15 +175,23 @@ const AddListing = props => {
     //     console.log(input);
     // };
 
+    const load = () => {
+        let loadItem = document.querySelector('.loading');
+        TweenMax.to(loadItem, 1, { scale: 1.1, repeat: -1 });
+        loadItem.style.display = 'block'
+    }
+
     const onSubmit = (event) => {
         event.preventDefault();
         console.log('input', input);
+        load();
         props.addListing(input);
     };
 
     return (
         <AddListingContainer>
             <h3>Add Listing</h3>
+            <OnLoad />
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
             <label htmlFor='title'>Title</label>
                 <input name='title' type='text' placeholder='Ex. Unique Architecture Cave House' value={input.title} onChange={onChange} required/>
