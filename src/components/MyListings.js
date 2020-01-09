@@ -250,7 +250,7 @@ const MyListings = props => {
                 </div>
                 
                 <h3>Stays</h3>
-                {props.listings.length === 1 ? <p className='location-description'>1 stay</p> : <p className='location-description'>{props.listings.length} stay(s)</p>}
+                {props.listings.length === 1 ? <p className='location-description'>1 stay</p> : <p className='location-description'>{props.listings.length} stays</p>}
 
                 <h4>Places to stay in Berlin</h4>
                 

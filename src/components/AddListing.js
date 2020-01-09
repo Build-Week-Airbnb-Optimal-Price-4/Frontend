@@ -7,8 +7,8 @@ import styled from 'styled-components';
 axios.defaults.withCredentials = true;
 
 const AddListingContainer = styled.div`
-    height: 600px;
-    width: 441px;
+    height: 950px;
+    width: 882px;
     margin: auto;
     background: white;
     border-radius: 3px;
@@ -31,7 +31,7 @@ const AddListingContainer = styled.div`
     }
 
     form {
-        width: 350px;
+        width: 700px;
         display: flex;
         flex-direction: column;
 
@@ -53,9 +53,67 @@ const AddListingContainer = styled.div`
             color: #484848;
         }
 
+        textarea {
+            margin-bottom: 8px;
+            padding: 12px;
+            border: 1px solid darkgray;
+            border-radius: 3px;
+            outline: none;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #484848;
+            resize: none;
+        }
+
+        select {
+            height: 46px;
+            margin-bottom: 8px;
+            padding: 12px;
+            border: 1px solid darkgray;
+            border-radius: 3px;
+            outline: none;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #484848;
+        }
+
+        .first-section {
+            display: flex;
+            justify-content: space-between;
+
+            .item {
+                width: 163px;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .second-section {
+            display: flex;
+            justify-content: space-between;
+
+            .item {
+                width: 342px;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .third-section {
+            display: flex;
+            justify-content: space-between;
+
+            .item {
+                width: 222.66px;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
         .buttons {
-            margin-top: 8px;
-            width: 350px;
+            margin-top: 16px;
             display: flex;
             justify-content: space-evenly;
 
@@ -125,63 +183,87 @@ const AddListing = props => {
         <AddListingContainer>
             <h3>Add Listing</h3>
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
-                <label htmlFor='title'>Title</label>
-                <input name='title' type='text' placeholder='Enter title' value={input.title} onChange={onChange} required/>
+            <label htmlFor='title'>Title</label>
+                <input name='title' type='text' placeholder='Ex. Unique Architecture Cave House' value={input.title} onChange={onChange} required/>
 
                 <label htmlFor='image'>Image</label>
-                <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange}/>
+                <input name='image' type='url' placeholder='Ex. google.com/image' value={input.image} onChange={onChange}/>
 
                 <label htmlFor='address'>Address</label>
-                <input name='address' type='text' placeholder='Enter address' value={input.address} onChange={onChange} required/>
+                <input name='address' type='text' placeholder='Ex. 1 Blueberry Farm Rd.' value={input.address} onChange={onChange} required/>
 
                 <label htmlFor='bag_of_words'>Description</label>
-                <textarea name='bag_of_words' placeholder='Enter description' value={input.bag_of_words} onChange={onChange} required></textarea>
-
-                <label htmlFor='size'>Size (sq. m.)</label>
-                <input name='size' type='number' placeholder='Enter size' value={input.size} onChange={onChange} required/>
-
-                <label htmlFor='accommodates'>Accommodates</label>
-                <input name='accommodates' type='number' placeholder='Enter accommodation' value={input.accommodates} onChange={onChange} required/>
-
-                <label htmlFor='bedrooms'>Number of Bedrooms</label>
-                <input name='bedrooms' type='number' placeholder='Enter bedrooms' value={input.bedrooms} onChange={onChange} required/>
+                <textarea name='bag_of_words' placeholder='Ex. This spacious, unparalleled cave house, hanging on the cliffs of the caldera in the center of Oia, is part of a traditional complex of cave houses, owned & renovated by a family of architects.' rows='4' value={input.bag_of_words} onChange={onChange} required></textarea>
                 
-                <label htmlFor='bathrooms'>Number of Bathrooms</label>
-                <input name='bathrooms' type='number' placeholder='Enter bathrooms' value={input.bathrooms} onChange={onChange} required/>
+                <div className='first-section'>
+                    <div className='item'>
+                        <label htmlFor='size'>Size (sq. m.)</label>
+                        <input name='size' type='number' placeholder='Ex. 1000' value={input.size} onChange={onChange} required/>
+                    </div>
 
-                <label htmlFor='room_type'>Room Type</label>
-                <select name='room_type' value={input.room_type} onChange={onChange}>
-                    <option value='Private Room'>Private room</option>
-                    <option value='Entire home/apt'>Entire home/apt.</option>
-                    <option value='Shared room'>Shared room</option>
-                </select>
+                    <div className='item'>
+                        <label htmlFor='accommodates'>Accommodates?</label>
+                        <input name='accommodates' type='number' placeholder='Ex. 4' value={input.accommodates} onChange={onChange} required/>
+                    </div>
 
-                <label htmlFor='bed_type'>Bed Type</label>
-                <select name='bed_type' value={input.bed_type} onChange={onChange}>
-                    <option value='Real Bed'>Real bed</option>
-                    <option value='Pull-out Sofa'>Pull-out sofa</option>
-                    <option value='Futon'>Futon</option>
-                    <option value='Couch'>Couch</option>
-                    <option value='Airbed'>Airbed</option>
-                </select>
+                    <div className='item'>
+                        <label htmlFor='bedrooms'># of Bedrooms</label>
+                        <input name='bedrooms' type='number' placeholder='Ex. 2' value={input.bedrooms} onChange={onChange} required/>
+                    </div>
 
-                <label htmlFor='instant_bookable'>Instant Bookable</label>
-                <select name='instant_bookable' value={input.instant_bookable} onChange={onChange}>
-                    <option value='f'>No</option>
-                    <option value='t'>Yes</option>
-                </select>
+                    <div className='item'>
+                        <label htmlFor='bathrooms'># of Bathrooms</label>
+                        <input name='bathrooms' type='number' placeholder='Ex. 1' value={input.bathrooms} onChange={onChange} required/>
+                    </div>
+                </div>
 
-                <label htmlFor='minimum_nights'>Minimum Nights</label>
-                <input name='minimum_nights' type='number' placeholder='Enter minimum nights' value={input.minimum_nights} onChange={onChange}/>
+                <div className='second-section'>
+                    <div className='item'>
+                        <label htmlFor='room_type'>Room Type</label>
+                        <select name='room_type' value={input.room_type} onChange={onChange}>
+                            <option value='Private Room'>Private room</option>
+                            <option value='Entire home/apt'>Entire home/apt.</option>
+                            <option value='Shared room'>Shared room</option>
+                        </select>
+                    </div>
+                    
+                    <div className='item'>
+                        <label htmlFor='bed_type'>Bed Type</label>
+                        <select name='bed_type' value={input.bed_type} onChange={onChange}>
+                            <option value='Real Bed'>Real bed</option>
+                            <option value='Pull-out Sofa'>Pull-out sofa</option>
+                            <option value='Futon'>Futon</option>
+                            <option value='Couch'>Couch</option>
+                            <option value='Airbed'>Airbed</option>
+                        </select>
+                    </div>
+                </div>
 
-                <label htmlFor='cancellation_policy'>Cancellation Policy</label>
-                <select name='cancellation_policy' value={input.cancellation_policy} onChange={onChange}>
-                    <option value='flexible'>Flexible</option>
-                    <option value='moderate'>Moderate</option>
-                    <option value='strict_14_with_grace_period'>Strict 14 with grace period</option>
-                    <option value='super_strict_30'>Super strict 30</option>
-                    <option value='super_strict_60'>Super strict 60</option>
-                </select>
+                <div className='third-section'>
+                    <div className='item'>
+                        <label htmlFor='instant_bookable'>Instantly Bookable?</label>
+                        <select name='instant_bookable' value={input.instant_bookable} onChange={onChange}>
+                            <option value='f'>No</option>
+                            <option value='t'>Yes</option>
+                        </select>
+                    </div>
+                    
+                    <div className='item'>
+                        <label htmlFor='minimum_nights'>Minimum Nights</label>
+                        <input name='minimum_nights' type='number' placeholder='Ex. 2' value={input.minimum_nights} onChange={onChange}/>
+                    </div>
+
+                    <div className='item'>
+                        <label htmlFor='cancellation_policy'>Cancellation Policy</label>
+                        <select name='cancellation_policy' value={input.cancellation_policy} onChange={onChange}>
+                            <option value='flexible'>Flexible</option>
+                            <option value='moderate'>Moderate</option>
+                            <option value='strict_14_with_grace_period'>14 days with grace period</option>
+                            <option value='super_strict_30'>30 days</option>
+                            <option value='super_strict_60'>60 days</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div className='buttons'>
                     <button type='button' onClick={() => props.toggleAddListingModal()}>Cancel</button>
