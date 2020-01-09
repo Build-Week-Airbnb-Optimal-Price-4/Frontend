@@ -3,13 +3,7 @@ const initialState = {
     addListingModal: false,
     createListingModal: false,
     editListingModal:  false,
-    editListingModalInput: {
-        image: '',
-        title: '',
-        city: '',
-        price: 0,
-        user_id: localStorage.getItem('user_id')
-    }
+    editListingModalInput: {}
 };
 
 export const reducer = (state = initialState, action) => {

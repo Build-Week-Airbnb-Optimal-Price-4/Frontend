@@ -94,21 +94,70 @@ const EditListing = props => {
     const onSubmit = (event) => {
         event.preventDefault();
         console.log('input', input);
-        props.editListing(input.id);
+        props.editListing(input.id, input);
     };
 
     return (
         <EditListingContainer>
             <h3>Edit Listing</h3>
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
-                <label htmlFor='image'>Image</label>
-                <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange} required/>
-
-                <label htmlFor='title'>Title</label>
+            <label htmlFor='title'>Title</label>
                 <input name='title' type='text' placeholder='Enter title' value={input.title} onChange={onChange} required/>
 
-                <label htmlFor='city'>City</label>
-                <input name='city' type='text' placeholder='Enter city' value={input.city} onChange={onChange} required/>
+                <label htmlFor='image'>Image</label>
+                <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange}/>
+
+                <label htmlFor='address'>Address</label>
+                <input name='address' type='text' placeholder='Enter address' value={input.address} onChange={onChange} required/>
+
+                <label htmlFor='bag_of_words'>Description</label>
+                <textarea name='bag_of_words' placeholder='Enter description' value={input.bag_of_words} onChange={onChange} required></textarea>
+
+                <label htmlFor='size'>Size (sq. m.)</label>
+                <input name='size' type='number' placeholder='Enter size' value={input.size} onChange={onChange} required/>
+
+                <label htmlFor='accommodates'>Accommodates</label>
+                <input name='accommodates' type='number' placeholder='Enter accommodation' value={input.accommodates} onChange={onChange} required/>
+
+                <label htmlFor='bedrooms'>Number of Bedrooms</label>
+                <input name='bedrooms' type='number' placeholder='Enter bedrooms' value={input.bedrooms} onChange={onChange} required/>
+                
+                <label htmlFor='bathrooms'>Number of Bathrooms</label>
+                <input name='bathrooms' type='number' placeholder='Enter bathrooms' value={input.bathrooms} onChange={onChange} required/>
+
+                <label htmlFor='room_type'>Room Type</label>
+                <select name='room_type' value={input.room_type} onChange={onChange}>
+                    <option value='Private Room'>Private room</option>
+                    <option value='Entire home/apt'>Entire home/apt.</option>
+                    <option value='Shared room'>Shared room</option>
+                </select>
+
+                <label htmlFor='bed_type'>Bed Type</label>
+                <select name='bed_type' value={input.bed_type} onChange={onChange}>
+                    <option value='Real Bed'>Real bed</option>
+                    <option value='Pull-out Sofa'>Pull-out sofa</option>
+                    <option value='Futon'>Futon</option>
+                    <option value='Couch'>Couch</option>
+                    <option value='Airbed'>Airbed</option>
+                </select>
+
+                <label htmlFor='instant_bookable'>Instant Bookable</label>
+                <select name='instant_bookable' value={input.instant_bookable} onChange={onChange}>
+                    <option value='f'>No</option>
+                    <option value='t'>Yes</option>
+                </select>
+
+                <label htmlFor='minimum_nights'>Minimum Nights</label>
+                <input name='minimum_nights' type='number' placeholder='Enter minimum nights' value={input.minimum_nights} onChange={onChange}/>
+
+                <label htmlFor='cancellation_policy'>Cancellation Policy</label>
+                <select name='cancellation_policy' value={input.cancellation_policy} onChange={onChange}>
+                    <option value='flexible'>Flexible</option>
+                    <option value='moderate'>Moderate</option>
+                    <option value='strict_14_with_grace_period'>Strict 14 with grace period</option>
+                    <option value='super_strict_30'>Super strict 30</option>
+                    <option value='super_strict_60'>Super strict 60</option>
+                </select>
 
                 <div className='buttons'>
                     <button type='button' onClick={() => props.toggleEditListingModal()}>Cancel</button>

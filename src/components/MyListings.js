@@ -111,6 +111,13 @@ const MyListingsContainer = styled.div`
             color: #484848;
         }
 
+        h4 {
+            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #484848;
+        }
+
         .listings-container {
             margin-bottom: 32px;
             display: flex;
@@ -243,7 +250,9 @@ const MyListings = props => {
                 </div>
                 
                 <h3>Stays</h3>
-                <p className='location-description'>{props.listings.length} stays</p>
+                {props.listings.length === 1 ? <p className='location-description'>1 stay</p> : <p className='location-description'>{props.listings.length} stay(s)</p>}
+
+                <h4>Places to stay in Berlin</h4>
                 
                 <div className='listings-container'>
 
@@ -252,14 +261,31 @@ const MyListings = props => {
                             <div className='listing-image' style={{background: `url(${item.image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
                                 <div className='actions'>
                                     <i className="fas fa-pen" onClick={() => props.getListingInformation(item.id)} title='edit'></i>
-                                    <i className="fas fa-copy" onClick={() => props.copyListing({image: item.image, title: `${item.title} copy`, city: item.city, price: item.price, user_id: localStorage.getItem('user_id')})} title='duplicate'></i>
+                                    <i className="fas fa-copy" onClick={() => {
+                                        props.copyListing({
+                                            user_id: localStorage.getItem('user_id'),
+                                            title: `${item.title} copy`,
+                                            image: item.image,
+                                            address: item.address,
+                                            bag_of_words: item.bag_of_words,
+                                            size: item.size,
+                                            accommodates: item.accommodates,
+                                            bedrooms: item.bedrooms,
+                                            bathrooms: item.bathrooms,
+                                            room_type: item.room_type,
+                                            bed_type: item.bed_type,
+                                            instant_bookable: item.instant_bookable,
+                                            minimum_nights: item.minimum_nights,
+                                            cancellation_policy: item.cancellation_policy
+                                        })
+                                    }} title='duplicate'></i>
                                     <i className="fas fa-trash" onClick={() => props.deleteListing(item.id)} title='delete'></i>
                                 </div>
                             </div>
                             <div className='listing-information' onClick={() => props.history.push(`/listing/${item.id}`)}>
-                                <p className='city'>{item.city}</p>
+                                <p className='city'>{item.room_type} · {item.bedrooms} bedrooms</p>
                                 <p className='title'>{item.title}</p>
-                                <p className='price'><b>${item.price}</b> / night</p>
+                                <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
                             </div>
                         </div>
                     ))}
