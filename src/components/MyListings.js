@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {getListings, toggleModal, deleteListing} from '../actions/Actions';
+import {getListings, toggleAddListingModal, deleteListing, copyListing, toggleEditListingModal, getListingInformation} from '../actions/Actions';
 import AddListing from './AddListing';
+import EditListing from './EditListing';
 import axios from 'axios';
 import styled from 'styled-components';
 import logo from '../img/logo.png';
@@ -135,13 +136,14 @@ const MyListingsContainer = styled.div`
                         padding: 8px;
 
                         i {
+                            margin-bottom: 4px;
                             height: 28px;
                             width: 28px;
                             background: white;
                             border-radius: 50%;
                             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                             font-size: 16px;
-                            color: #484848;
+                            color: #black;
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -149,13 +151,9 @@ const MyListingsContainer = styled.div`
                             transition: 0.25s;
 
                             :hover {
-                                transform: scale(1.1)
+                                color: #484848;
                             }
-                        }
-
-                        .fa-pen {
-                            margin-bottom: 4px;
-                        }
+                        }    
                     }
                 }
 
@@ -225,7 +223,8 @@ const MyListings = props => {
 
     return (
         <MyListingsContainer>
-            {props.modal && <AddListing/>}
+            {props.addListingModal && <AddListing/>}
+            {props.editListingModal && <EditListing/>}
 
             <header>
                 <div>
@@ -240,62 +239,21 @@ const MyListings = props => {
                         <h2>My Listings</h2>
                         <p>We use historical data to determine the optimal price for your AirBnB listing.</p>
                     </div>
-                    <button onClick={() => props.toggleModal()}>+ Add New Listing</button>
+                    <button onClick={() => props.toggleAddListingModal()}>+ Add New Listing</button>
                 </div>
                 
                 <h3>Stays</h3>
-                <p className='location-description'>{props.listings.length + 3} stays</p>
+                <p className='location-description'>{props.listings.length} stays</p>
                 
                 <div className='listings-container'>
-                    
-                    <div className='listing'>
-                        <div className='listing-image' style={{background: `url(https://a0.muscache.com/im/pictures/2364299/9fecde4e_original.jpg?aki_policy=xx_large)`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-                            <div className='actions'>
-                                <i className="fas fa-pen"></i>
-                                <i className="fas fa-trash"></i>
-                            </div>
-                        </div>
-                        <div className='listing-information'>
-                            <p className='city'>Berlin</p>
-                            <p className='title'>Adorable apartment in the City Center of Berlin</p>
-                            <p className='price'><b>$10</b> / night</p>
-                        </div>
-                    </div>
-
-                    <div className='listing'>
-                        <div className='listing-image' style={{background: `url(https://a0.muscache.com/im/pictures/1b6167f9-aac1-4b0f-8a10-f36f3ab2f872.jpg?aki_policy=xx_large)`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-                            <div className='actions'>
-                                <i className="fas fa-pen"></i>
-                                <i className="fas fa-trash"></i>
-                            </div>
-                        </div>
-                        <div className='listing-information'>
-                            <p className='city'>Berlin</p>
-                            <p className='title'>Cosy studio in the heart of Charlottenburg</p>
-                            <p className='price'><b>$39</b> / night</p>
-                        </div>
-                    </div>
-
-                    <div className='listing'>
-                        <div className='listing-image' style={{background: `url(https://a0.muscache.com/im/pictures/3cb3a025-a598-481c-b7f6-6d018eb0dc30.jpg?aki_policy=xx_large)`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-                            <div className='actions'>
-                                <i className="fas fa-pen"></i>
-                                <i className="fas fa-trash"></i>
-                            </div>
-                        </div>
-                        <div className='listing-information'>
-                            <p className='city'>Berlin</p>
-                            <p className='title'>Quiet & Small (LINDEMANN´S)</p>
-                            <p className='price'><b>$49</b> / night</p>
-                        </div>
-                    </div>
 
                     {props.listings.map(item => (
                         <div className='listing' key={item.id}>
                             <div className='listing-image' style={{background: `url(${item.image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
                                 <div className='actions'>
-                                    <i className="fas fa-pen"></i>
-                                    <i className="fas fa-trash" onClick={() => props.deleteListing(item.id)}></i>
+                                    <i className="fas fa-pen" onClick={() => props.getListingInformation(item.id)} title='edit'></i>
+                                    <i className="fas fa-copy" onClick={() => props.copyListing({image: item.image, title: `${item.title} copy`, city: item.city, price: item.price, user_id: localStorage.getItem('user_id')})} title='duplicate'></i>
+                                    <i className="fas fa-trash" onClick={() => props.deleteListing(item.id)} title='delete'></i>
                                 </div>
                             </div>
                             <div className='listing-information' onClick={() => props.history.push(`/listing/${item.id}`)}>
@@ -331,8 +289,9 @@ const MyListings = props => {
 const mapStateToProps = state => {
     return {
         listings: state.listings,
-        modal: state.modal
+        addListingModal: state.addListingModal,
+        editListingModal: state.editListingModal
     };
 };
 
-export default connect(mapStateToProps, {getListings, toggleModal, deleteListing})(MyListings);
+export default connect(mapStateToProps, {getListings, toggleAddListingModal, deleteListing, copyListing, toggleEditListingModal, getListingInformation})(MyListings);

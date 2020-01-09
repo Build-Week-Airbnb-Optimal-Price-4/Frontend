@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -35,9 +35,7 @@ const Listing = props => {
 
     useEffect(() => {
         axios.get(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${localStorage.getItem('user_id')}`)
-            .then(response => {
-                setListing(response.data.find(item => item.id == props.match.params.id));
-            })
+            .then(response => setListing(response.data.find(item => item.id === Number(props.match.params.id))))
             .catch(error => console.log('getListings in listing component', error));
     }, []);
 

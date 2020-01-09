@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {toggleModal, addListing, getListings} from '../actions/Actions';
+import {toggleAddListingModal, addListing, getListings} from '../actions/Actions';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -109,7 +109,7 @@ const AddListing = props => {
             <h3>Add Listing</h3>
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
                 <label htmlFor='image'>Image</label>
-                <input name='image' type='url' placeholder='Enter image url' value={input.image} onChange={onChange} required/>
+                <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange} required/>
 
                 <label htmlFor='title'>Title</label>
                 <input name='title' type='text' placeholder='Enter title' value={input.title} onChange={onChange} required/>
@@ -118,7 +118,7 @@ const AddListing = props => {
                 <input name='city' type='text' placeholder='Enter city' value={input.city} onChange={onChange} required/>
 
                 <div className='buttons'>
-                    <button type='button' onClick={() => props.toggleModal()}>Cancel</button>
+                    <button type='button' onClick={() => props.toggleAddListingModal()}>Cancel</button>
                     <button type='submit'>Add</button>
                 </div>
             </form>
@@ -126,10 +126,4 @@ const AddListing = props => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-
-    };
-};
-
-export default connect(mapStateToProps, {toggleModal, addListing, getListings})(AddListing);
+export default connect(null, {toggleAddListingModal, addListing, getListings})(AddListing);
