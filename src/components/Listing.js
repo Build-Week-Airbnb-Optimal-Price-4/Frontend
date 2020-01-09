@@ -44,11 +44,11 @@ const Listing = props => {
             <div>
                 <ListH1>{listing.title}</ListH1>
                 <InfoDiv>
-                    <h3>Location: {listing.city}</h3>
+                    <h3>Address: {listing.address}</h3>
                     <h3>Price: {listing.price}</h3>
                 </InfoDiv>
             </div>
-            <ListingImg src={listing.image} />
+            <ListingImg src={listing.image}/>
         </ListDiv>
     );
 };

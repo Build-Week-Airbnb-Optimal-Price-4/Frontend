@@ -7,7 +7,7 @@ import styled from 'styled-components';
 axios.defaults.withCredentials = true;
 
 const AddListingContainer = styled.div`
-    height: 475px;
+    height: 600px;
     width: 441px;
     margin: auto;
     background: white;
@@ -83,11 +83,20 @@ const AddListingContainer = styled.div`
 
 const AddListing = props => {
     const [input, setInput] = useState({
-        image: '',
+        user_id: localStorage.getItem('user_id'),
         title: '',
-        city: '',
-        price: Math.floor(Math.random() * 100) + 1,
-        user_id: localStorage.getItem('user_id')
+        image: '',
+        address: '',
+        bag_of_words: '',
+        size: '',
+        accommodates: '',
+        bedrooms: '',
+        bathrooms: '',
+        room_type: 'Private Room',
+        bed_type: 'Real Bed',
+        instant_bookable: 'f',
+        minimum_nights: 2,
+        cancellation_policy: 'flexible'
     });
 
     const onChange = event => {
@@ -95,27 +104,84 @@ const AddListing = props => {
             ...input,
             [event.target.name]: event.target.value
         });
+        console.log(input);
     };
+
+    // const numberOnChange = event => {
+    //     setInput({
+    //         ...input,
+    //         [event.target.name]: Number(event.target.value)
+    //     });
+    //     console.log(input);
+    // };
 
     const onSubmit = (event) => {
         event.preventDefault();
         console.log('input', input);
         props.addListing(input);
-        // do not need to reset input, component does it by itself
     };
 
     return (
         <AddListingContainer>
             <h3>Add Listing</h3>
             <form autoComplete='off' spellCheck='false' onSubmit={onSubmit}>
-                <label htmlFor='image'>Image</label>
-                <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange} required/>
-
                 <label htmlFor='title'>Title</label>
                 <input name='title' type='text' placeholder='Enter title' value={input.title} onChange={onChange} required/>
 
-                <label htmlFor='city'>City</label>
-                <input name='city' type='text' placeholder='Enter city' value={input.city} onChange={onChange} required/>
+                <label htmlFor='image'>Image</label>
+                <input name='image' type='text' placeholder='Enter image url' value={input.image} onChange={onChange}/>
+
+                <label htmlFor='address'>Address</label>
+                <input name='address' type='text' placeholder='Enter address' value={input.address} onChange={onChange} required/>
+
+                <label htmlFor='bag_of_words'>Description</label>
+                <textarea name='bag_of_words' placeholder='Enter description' value={input.bag_of_words} onChange={onChange} required></textarea>
+
+                <label htmlFor='size'>Size (sq. m.)</label>
+                <input name='size' type='number' placeholder='Enter size' value={input.size} onChange={onChange} required/>
+
+                <label htmlFor='accommodates'>Accommodates</label>
+                <input name='accommodates' type='number' placeholder='Enter accommodation' value={input.accommodates} onChange={onChange} required/>
+
+                <label htmlFor='bedrooms'>Number of Bedrooms</label>
+                <input name='bedrooms' type='number' placeholder='Enter bedrooms' value={input.bedrooms} onChange={onChange} required/>
+                
+                <label htmlFor='bathrooms'>Number of Bathrooms</label>
+                <input name='bathrooms' type='number' placeholder='Enter bathrooms' value={input.bathrooms} onChange={onChange} required/>
+
+                <label htmlFor='room_type'>Room Type</label>
+                <select name='room_type' value={input.room_type} onChange={onChange}>
+                    <option value='Private Room'>Private room</option>
+                    <option value='Entire home/apt'>Entire home/apt.</option>
+                    <option value='Shared room'>Shared room</option>
+                </select>
+
+                <label htmlFor='bed_type'>Bed Type</label>
+                <select name='bed_type' value={input.bed_type} onChange={onChange}>
+                    <option value='Real Bed'>Real bed</option>
+                    <option value='Pull-out Sofa'>Pull-out sofa</option>
+                    <option value='Futon'>Futon</option>
+                    <option value='Couch'>Couch</option>
+                    <option value='Airbed'>Airbed</option>
+                </select>
+
+                <label htmlFor='instant_bookable'>Instant Bookable</label>
+                <select name='instant_bookable' value={input.instant_bookable} onChange={onChange}>
+                    <option value='f'>No</option>
+                    <option value='t'>Yes</option>
+                </select>
+
+                <label htmlFor='minimum_nights'>Minimum Nights</label>
+                <input name='minimum_nights' type='number' placeholder='Enter minimum nights' value={input.minimum_nights} onChange={onChange}/>
+
+                <label htmlFor='cancellation_policy'>Cancellation Policy</label>
+                <select name='cancellation_policy' value={input.cancellation_policy} onChange={onChange}>
+                    <option value='flexible'>Flexible</option>
+                    <option value='moderate'>Moderate</option>
+                    <option value='strict_14_with_grace_period'>Strict 14 with grace period</option>
+                    <option value='super_strict_30'>Super strict 30</option>
+                    <option value='super_strict_60'>Super strict 60</option>
+                </select>
 
                 <div className='buttons'>
                     <button type='button' onClick={() => props.toggleAddListingModal()}>Cancel</button>

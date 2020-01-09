@@ -74,11 +74,18 @@ export const getListingInformation = id => dispatch => {
         .catch(error => console.log(error.response.data));
 };
 
-export const editListing = id => dispatch => {
+export const editListing = (id, information) => dispatch => {
     console.log('editListing was run!');
-    axios.put(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${id}`)
+    axios.put(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${id}`, information)
         .then(response => {
             console.log(response);
+            axios.get(`https://rs-airbnb-opti-price-4-pg.herokuapp.com/api/listings/${localStorage.getItem('user_id')}`)
+                .then(res => {
+                    dispatch({type: 'SUCCESS', payload: res.data});
+                    console.log('nested getListings response', res);
+                    console.log('nested getListings was run!');
+                })
+                .catch(err => console.log('nested getListing error', err.response.data));
             dispatch({type: 'TOGGLE_EDIT_LISTING_MODAL'});
         })
         .catch(error => console.log(error.response.data));
