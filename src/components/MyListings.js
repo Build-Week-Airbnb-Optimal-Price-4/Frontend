@@ -148,7 +148,6 @@ const MyListingsContainer = styled.div`
                             width: 28px;
                             background: white;
                             border-radius: 50%;
-                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                             font-size: 16px;
                             color: #black;
                             display: flex;
@@ -185,10 +184,24 @@ const MyListingsContainer = styled.div`
                         text-overflow: ellipsis;
                     }
 
-                    .price {
-                        font-size: 16px;
-                        font-weight: 500;
-                        color: #484848;
+                    .optiprice {
+                        display: flex;
+
+                        .opti {
+                            margin-right: 4px;
+                            padding: 2px;
+                            background: #8ccfb9;
+                            border-radius: 2px;
+                            font-size: 14px;
+                            font-weight: 600;
+                            color: #484848;
+                        }
+                        
+                        .price {
+                            font-size: 16px;
+                            font-weight: 500;
+                            color: #484848;
+                        }
                     }
                 }
 
@@ -285,7 +298,10 @@ const MyListings = props => {
                             <div className='listing-information' onClick={() => props.history.push(`/listing/${item.id}`)}>
                                 <p className='city'>{item.room_type} · {item.bedrooms} bedrooms</p>
                                 <p className='title'>{item.title}</p>
-                                <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
+                                <div className='optiprice'>
+                                    <p className='opti'>OPTIPRICE</p>
+                                    <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
+                                </div>
                             </div>
                         </div>
                     ))}
