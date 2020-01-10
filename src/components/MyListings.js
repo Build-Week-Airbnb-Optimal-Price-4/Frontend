@@ -176,6 +176,7 @@ const MyListingsContainer = styled.div`
                     }
 
                     .title {
+                        margin-bottom: 3px;
                         font-size: 16px;
                         font-weight: 500;
                         color: #484848;
@@ -189,7 +190,7 @@ const MyListingsContainer = styled.div`
                         align-items: center;
 
                         .opti {
-                            margin-right: 4px;
+                            margin-right: 8px;
                             padding: 1px;
                             background: #8ccfb9;
                             border: 1px solid darkgray;

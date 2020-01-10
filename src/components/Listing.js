@@ -163,7 +163,8 @@ const ListingContainer = styled.div`
         }
 
         h3 {
-            margin: 16px 0;
+            margin-top: 16px;
+            margin-bottom: 12px;
             font-size: 20px;
             font-weight: 700;
             color: #484848;
