@@ -150,7 +150,7 @@ const AddListing = props => {
         accommodates: '',
         bedrooms: '',
         bathrooms: '',
-        room_type: 'Private Room',
+        room_type: 'Private room',
         bed_type: 'Real Bed',
         instant_bookable: 'f',
         minimum_nights: 2,
@@ -176,7 +176,22 @@ const AddListing = props => {
     const onSubmit = (event) => {
         event.preventDefault();
         console.log('input', input);
-        props.addListing(input);
+        props.addListing({
+            user_id: localStorage.getItem('user_id'),
+            title: input.title,
+            image: input.image,
+            address: input.address,
+            bag_of_words: input.bag_of_words,
+            size: Number(input.size),
+            accommodates: Number(input.accommodates),
+            bedrooms: Number(input.bedrooms),
+            bathrooms: Number(input.bathrooms),
+            room_type: input.room_type,
+            bed_type: input.bed_type,
+            instant_bookable: input.instant_bookable,
+            minimum_nights: Number(input.minimum_nights),
+            cancellation_policy: input.cancellation_policy
+        });
     };
 
     return (
@@ -221,7 +236,7 @@ const AddListing = props => {
                     <div className='item'>
                         <label htmlFor='room_type'>Room Type</label>
                         <select name='room_type' value={input.room_type} onChange={onChange}>
-                            <option value='Private Room'>Private room</option>
+                            <option value='Private room'>Private room</option>
                             <option value='Entire home/apt'>Entire home/apt.</option>
                             <option value='Shared room'>Shared room</option>
                         </select>

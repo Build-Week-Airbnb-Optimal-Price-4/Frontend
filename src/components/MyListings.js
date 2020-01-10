@@ -189,7 +189,7 @@ const MyListingsContainer = styled.div`
                         align-items: center;
 
                         .opti {
-                            margin-right: 8px;
+                            margin-right: 4px;
                             padding: 1px;
                             background: #8ccfb9;
                             border: 1px solid darkgray;
@@ -267,7 +267,7 @@ const MyListings = props => {
                 <h3>Stays</h3>
                 {props.listings.length === 1 ? <p className='location-description'>1 stay</p> : <p className='location-description'>{props.listings.length} stays</p>}
 
-                <h4>Places to stay in Berlin</h4>
+                {/* <h4>Places to stay in Berlin</h4> */}
                 
                 <div className='listings-container'>
 
@@ -298,7 +298,7 @@ const MyListings = props => {
                                 </div>
                             </div>
                             <div className='listing-information' onClick={() => props.history.push(`/listing/${item.id}`)}>
-                                <p className='city'>{item.room_type} · {item.bedrooms} bedrooms</p>
+                                {item.bedrooms === 1 ? <p className='city'>{item.room_type} · {item.bedrooms} bedroom</p> : <p className='city'>{item.room_type} · {item.bedrooms} bedrooms</p>}
                                 <p className='title'>{item.title}</p>
                                 <div className='optiprice'>
                                     <p className='opti'>OPTIPRICE</p>
