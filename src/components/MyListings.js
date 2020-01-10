@@ -186,12 +186,14 @@ const MyListingsContainer = styled.div`
 
                     .optiprice {
                         display: flex;
+                        align-items: center;
 
                         .opti {
-                            margin-right: 4px;
-                            padding: 2px;
+                            margin-right: 8px;
+                            padding: 1px;
                             background: #8ccfb9;
-                            border-radius: 2px;
+                            border: 1px solid darkgray;
+                            border-radius: 3px;
                             font-size: 14px;
                             font-weight: 600;
                             color: #484848;

@@ -89,7 +89,7 @@ const ListingContainer = styled.div`
             }
         }
 
-        img {
+        .listing-image {
             margin-bottom: 16px;
             width: 768px;
             border: 1px solid darkgray;
@@ -97,10 +97,33 @@ const ListingContainer = styled.div`
         }
 
         h2 {
-            margin-bottom: 8px;
+            margin-bottom: 16px;
             font-size: 28px;
             font-weight: 700;
             color: #484848;
+        }
+
+        .optiprice {
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+
+            .opti {
+                margin-right: 8px;
+                padding: 2px;
+                background: #8ccfb9;
+                border: 1px solid darkgray;
+                border-radius: 2px;
+                font-size: 16px;
+                font-weight: 600;
+                color: #484848;
+            }
+            
+            .price {
+                font-size: 20px;
+                font-weight: 500;
+                color: #484848;
+            }
         }
 
         .address {
@@ -132,6 +155,76 @@ const ListingContainer = styled.div`
             margin-top: 8px;
             font-size: 16px;
             font-weight: 500;
+        }
+
+        h3 {
+            margin: 12px 0;
+            font-size: ;
+            font-weight: 700;
+            color: #484848;
+        }
+
+        .sleeping-arrangements {
+            height: 147px;
+            width: 187.33px;
+            padding: 24px;
+            border: 1px solid darkgray;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            i {
+                color: #484848;
+            }
+
+            div {
+                p {
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: #484848;
+                }
+
+                p:first-child {
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .review {
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+
+            .reviewer {
+                margin-bottom: 8px;
+                display: flex;
+            
+                img {
+                    height: 48px;
+                    width: 48px;
+                    margin-right: 16px;
+                    border-radius: 50%;
+                }
+
+                div {
+                    p {
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #484848;
+                    }
+    
+                    p:first-child {
+                        font-size: 16px;
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            .bio {
+                font-size: 16px;
+                font-weight: 500;
+                color: #484848;
+            }
         }
     }
 `
@@ -169,17 +262,131 @@ const Listing = props => {
                     <i className="fas fa-arrow-left"></i>
                     <p onClick={() => props.history.push('/dashboard')}>Go back</p>
                 </div>
-                <img src={listing.image} alt='listing image'/>
+                <img className='listing-image' src={listing.image} alt='listing image'/>
                 <h2>{listing.title}</h2>
+                <div className='optiprice'>
+                    <p className='opti'>OPTIPRICE</p>
+                    <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
+                </div>
                 <p className='address'>{listing.address}</p>
                 <div className='first-section'>
                     <p><i className="fas fa-user"></i>{listing.accommodates} guest(s)</p>
                     <p><i className="fas fa-door-closed"></i>{listing.bedrooms} bedroom(s)</p>
-                    <p><i class="fas fa-bed"></i>{listing.bed_type}</p>
-                    <p><i class="fas fa-bath"></i>{listing.bathrooms} bath(s)</p>
+                    <p><i className="fas fa-bed"></i>{listing.bed_type}</p>
+                    <p><i className="fas fa-bath"></i>{listing.bathrooms} bath(s)</p>
                 </div>
                 <hr/>
                 <p className='description'>{listing.bag_of_words}</p>
+                <h3>Sleeping arrangements</h3>
+                <div className='sleeping-arrangements'>
+                    <i className="fas fa-bed"></i>
+                    <div>
+                        <p>Bed Type</p>
+                        <p>{listing.bed_type}</p>
+                    </div>
+                </div>
+                <h3>Availability</h3>
+                <p>The minimum number of nights is {listing.minimum_nights}.</p>
+                <h3>Cancellations</h3>
+                <p>The cancellation policy is {listing.cancellation_policy}.</p>
+                <h3>The neighborhood</h3>
+
+                <h3>Reviews</h3>
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UNJHKALF3-499b9da40708-512' alt='Miguel'/>
+                        <div>
+                            <p>Miguel</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>This home was spectacular. It was more than we could have ever wanted or asked for. If we make our way back, we will definitely be staying here again!! Thank you for such a wonderful time!!</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UR3HCJ0T1-e5e9f4f74fe0-512' alt='Miguel'/>
+                        <div>
+                            <p>Alexis</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>Absolutely stunning! The location is perfect, with sunset views that will take your breath away. The layout is comfortable for multiple guests, and the design is casually elegant. The housekeeper was also so kind and made sure we had everything we needed. We stayed during off-season. The weather was still beautiful, and the crowds thankfully diminished. The hike was outstanding. One of our best Airbnb experiences ever. A truly sensational stay.</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UP5UY4XQC-49b7b3c4e57f-512' alt='Miguel'/>
+                        <div>
+                            <p>Corell</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>This home is one of a kind. We had such a wonderful stay. The staff was on top of everything that we could possibly need. The home is central for exploring. The views are out of this world! I can not recommend staying at this home enough.</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-ULKBTT25R-a540efc1845c-512' alt='Miguel'/>
+                        <div>
+                            <p>Ryan</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>This place is GORGEOUS!!! It has a great location and the best view we could of have asked. The interiors are very nicely decorated and it truly feels like a home. Very spacious. Looking forward to my next stay in this location.</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UNK2RKMA9-4193e937c0d8-512' alt='Miguel'/>
+                        <div>
+                            <p>Maggie</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>This home is truly stunning and I’m glad we decided to stay here during part of our trip. Don’t hesitate to book this home, you won’t regret it!</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UMMLCL0BV-9cafc328dd53-512' alt='Miguel'/>
+                        <div>
+                            <p>Nicole</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>A fantastic location and close to everything. If you're looking for "that view".. I would highly suggest booking here.</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UM3UYUP7D-d06d593b96c0-512' alt='Miguel'/>
+                        <div>
+                            <p>Jean</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>Best location nearby. Lots of restaurants. The house is very clean and looks exactly like on the photos. Will definitely come back to place again.</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-ULVMAQ3CG-8a6b52348705-512' alt='Miguel'/>
+                        <div>
+                            <p>Stefano</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>Beautiful place and location!! This place is completely modern. Outstanding place and value! We were close to shops and restaurants, but with absolute privacy and quiet when in the house or on the terrace. The view is a picture perfect postcard! Our room was restocked, and tidy everyday upon our return! Loved the jacuzzi! Everything was perfect! Until next time!</p>
+                </div>
+                <hr/>
             </section>
         </ListingContainer>
     );
