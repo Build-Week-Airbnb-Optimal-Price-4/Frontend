@@ -151,6 +151,11 @@ const ListingContainer = styled.div`
             }
         }
 
+        hr {
+            border: 1px solid darkgray;
+            border-radius: 1px;
+        }
+
         .description {
             margin-top: 8px;
             font-size: 16px;
@@ -188,6 +193,11 @@ const ListingContainer = styled.div`
                     font-weight: 700;
                 }
             }
+        }
+
+        iframe {
+            border: 1px solid darkgray;
+            border-radius: 3px;
         }
 
         .review {
@@ -262,13 +272,13 @@ const Listing = props => {
                     <i className="fas fa-arrow-left"></i>
                     <p onClick={() => props.history.push('/dashboard')}>Go back</p>
                 </div>
-                <img className='listing-image' src={listing.image} alt='listing image'/>
+                <img className='listing-image' src={listing.image} alt='listing'/>
                 <h2>{listing.title}</h2>
+                <p className='address'>{listing.address}</p>
                 <div className='optiprice'>
                     <p className='opti'>OPTIPRICE</p>
                     <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
                 </div>
-                <p className='address'>{listing.address}</p>
                 <div className='first-section'>
                     <p><i className="fas fa-user"></i>{listing.accommodates} guest(s)</p>
                     <p><i className="fas fa-door-closed"></i>{listing.bedrooms} bedroom(s)</p>
@@ -289,8 +299,10 @@ const Listing = props => {
                 <p>The minimum number of nights is {listing.minimum_nights}.</p>
                 <h3>Cancellations</h3>
                 <p>The cancellation policy is {listing.cancellation_policy}.</p>
+                
                 <h3>The neighborhood</h3>
-
+                <iframe title='map' height='500' width='768' src={`https://maps.google.com/maps?q=${listing.address}&t=&z=15&ie=UTF8&iwloc=&output=embed`} allowFullScreen></iframe>
+                
                 <h3>Reviews</h3>
                 <div className='review'>
                     <div className='reviewer'>
