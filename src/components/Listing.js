@@ -90,17 +90,10 @@ const ListingContainer = styled.div`
         }
 
         .listing-image {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             width: 768px;
             border: 1px solid darkgray;
             border-radius: 3px;
-        }
-
-        h2 {
-            margin-bottom: 16px;
-            font-size: 28px;
-            font-weight: 700;
-            color: #484848;
         }
 
         .optiprice {
@@ -114,26 +107,33 @@ const ListingContainer = styled.div`
                 background: #8ccfb9;
                 border: 1px solid darkgray;
                 border-radius: 2px;
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: 600;
                 color: #484848;
             }
             
             .price {
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: 500;
                 color: #484848;
             }
         }
 
+        h2 {
+            margin-bottom: 4px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #484848;
+        }
+
         .address {
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             font-size: 16px;
             font-weight: 500;
         }
 
         .first-section {
-            margin-bottom: 8px;
+            margin-bottom: 16px;
             font-size: 16px;
             font-weight: 500;
             display: flex;
@@ -157,15 +157,21 @@ const ListingContainer = styled.div`
         }
 
         .description {
-            margin-top: 8px;
+            margin-top: 16px;
             font-size: 16px;
             font-weight: 500;
         }
 
         h3 {
-            margin: 12px 0;
-            font-size: ;
+            margin: 16px 0;
+            font-size: 20px;
             font-weight: 700;
+            color: #484848;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: 500;
             color: #484848;
         }
 
@@ -201,7 +207,7 @@ const ListingContainer = styled.div`
         }
 
         .review {
-            padding: 24px 0;
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
 
@@ -267,26 +273,34 @@ const Listing = props => {
                 </div>
                 <button onClick={signOutOnClick}>Sign Out</button>
             </header>
+
             <section>
                 <div className='go-back'>
                     <i className="fas fa-arrow-left"></i>
                     <p onClick={() => props.history.push('/dashboard')}>Go back</p>
                 </div>
+
                 <img className='listing-image' src={listing.image} alt='listing'/>
-                <h2>{listing.title}</h2>
-                <p className='address'>{listing.address}</p>
+
                 <div className='optiprice'>
                     <p className='opti'>OPTIPRICE</p>
                     <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
                 </div>
+
+                <h2>{listing.title}</h2>
+
+                <p className='address'>{listing.address}</p>
+
                 <div className='first-section'>
-                    <p><i className="fas fa-user"></i>{listing.accommodates} guest(s)</p>
-                    <p><i className="fas fa-door-closed"></i>{listing.bedrooms} bedroom(s)</p>
+                    {listing.accommodates === 1 ? <p><i className="fas fa-user"></i>{listing.accommodates} guest</p> : <p><i className="fas fa-user"></i>{listing.accommodates} guests</p>}
+                    {listing.bedrooms === 1 ? <p><i className="fas fa-door-closed"></i>{listing.bedrooms} bedroom</p> : <p><i className="fas fa-door-closed"></i>{listing.bedrooms} bedrooms</p>}
                     <p><i className="fas fa-bed"></i>{listing.bed_type}</p>
-                    <p><i className="fas fa-bath"></i>{listing.bathrooms} bath(s)</p>
+                    {listing.bathrooms === 1 ? <p><i className="fas fa-bath"></i>{listing.bathrooms} bath</p> : <p><i className="fas fa-bath"></i>{listing.bathrooms} baths</p>}
                 </div>
                 <hr/>
+
                 <p className='description'>{listing.bag_of_words}</p>
+
                 <h3>Sleeping arrangements</h3>
                 <div className='sleeping-arrangements'>
                     <i className="fas fa-bed"></i>
@@ -295,13 +309,15 @@ const Listing = props => {
                         <p>{listing.bed_type}</p>
                     </div>
                 </div>
+
                 <h3>Availability</h3>
                 <p>The minimum number of nights is {listing.minimum_nights}.</p>
+
                 <h3>Cancellations</h3>
                 <p>The cancellation policy is {listing.cancellation_policy}.</p>
                 
                 <h3>The neighborhood</h3>
-                <iframe title='map' height='500' width='768' src={`https://maps.google.com/maps?q=${listing.address}&t=&z=15&ie=UTF8&iwloc=&output=embed`} allowFullScreen></iframe>
+                <iframe title='map' height='500' width='768' src={`https://maps.google.com/maps?q=${listing.address}&t=&z=15&ie=UTF8&iwloc=&output=embed`}></iframe>
                 
                 <h3>Reviews</h3>
                 <div className='review'>
