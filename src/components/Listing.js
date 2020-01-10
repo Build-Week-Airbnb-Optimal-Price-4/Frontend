@@ -267,18 +267,24 @@ const Listing = props => {
                 </div>
                 <button onClick={signOutOnClick}>Sign Out</button>
             </header>
+
             <section>
                 <div className='go-back'>
                     <i className="fas fa-arrow-left"></i>
                     <p onClick={() => props.history.push('/dashboard')}>Go back</p>
                 </div>
+
                 <img className='listing-image' src={listing.image} alt='listing'/>
+
                 <h2>{listing.title}</h2>
+
                 <p className='address'>{listing.address}</p>
+                
                 <div className='optiprice'>
                     <p className='opti'>OPTIPRICE</p>
                     <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
                 </div>
+
                 <div className='first-section'>
                     <p><i className="fas fa-user"></i>{listing.accommodates} guest(s)</p>
                     <p><i className="fas fa-door-closed"></i>{listing.bedrooms} bedroom(s)</p>
@@ -286,7 +292,9 @@ const Listing = props => {
                     <p><i className="fas fa-bath"></i>{listing.bathrooms} bath(s)</p>
                 </div>
                 <hr/>
+
                 <p className='description'>{listing.bag_of_words}</p>
+
                 <h3>Sleeping arrangements</h3>
                 <div className='sleeping-arrangements'>
                     <i className="fas fa-bed"></i>
@@ -295,8 +303,10 @@ const Listing = props => {
                         <p>{listing.bed_type}</p>
                     </div>
                 </div>
+
                 <h3>Availability</h3>
                 <p>The minimum number of nights is {listing.minimum_nights}.</p>
+
                 <h3>Cancellations</h3>
                 <p>The cancellation policy is {listing.cancellation_policy}.</p>
                 
