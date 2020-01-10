@@ -303,7 +303,7 @@ const MyListings = props => {
                                 <p className='title'>{item.title}</p>
                                 <div className='optiprice'>
                                     <p className='opti'>OPTIPRICE</p>
-                                    <p className='price'><b>${Math.floor(Math.random() * 100) + 1}</b> / night</p>
+                                    <p className='price'><b>${item.price}</b> / night</p>
                                 </div>
                             </div>
                         </div>

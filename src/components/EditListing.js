@@ -151,8 +151,38 @@ const EditListing = props => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log('input', input);
-        props.editListing(input.id, input);
+        console.log('input', {
+            user_id: localStorage.getItem('user_id'),
+            title: input.title,
+            image: input.image,
+            address: input.address,
+            bag_of_words: input.bag_of_words,
+            size: Number(input.size),
+            accommodates: Number(input.accommodates),
+            bedrooms: Number(input.bedrooms),
+            bathrooms: Number(input.bathrooms),
+            room_type: input.room_type,
+            bed_type: input.bed_type,
+            instant_bookable: input.instant_bookable,
+            minimum_nights: Number(input.minimum_nights),
+            cancellation_policy: input.cancellation_policy
+        });
+        props.editListing(input.id, {
+            user_id: localStorage.getItem('user_id'),
+            title: input.title,
+            image: input.image,
+            address: input.address,
+            bag_of_words: input.bag_of_words,
+            size: Number(input.size),
+            accommodates: Number(input.accommodates),
+            bedrooms: Number(input.bedrooms),
+            bathrooms: Number(input.bathrooms),
+            room_type: input.room_type,
+            bed_type: input.bed_type,
+            instant_bookable: input.instant_bookable,
+            minimum_nights: Number(input.minimum_nights),
+            cancellation_policy: input.cancellation_policy
+        });
     };
 
     return (
