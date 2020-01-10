@@ -335,7 +335,7 @@ const Listing = props => {
 
                 <div className='review'>
                     <div className='reviewer'>
-                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UR3HCJ0T1-e5e9f4f74fe0-512' alt='Miguel'/>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UR3HCJ0T1-e5e9f4f74fe0-512' alt='Alexis'/>
                         <div>
                             <p>Alexis</p>
                             <p>January 2020</p>
@@ -347,7 +347,7 @@ const Listing = props => {
 
                 <div className='review'>
                     <div className='reviewer'>
-                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UP5UY4XQC-49b7b3c4e57f-512' alt='Miguel'/>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UP5UY4XQC-49b7b3c4e57f-512' alt='Corell'/>
                         <div>
                             <p>Corell</p>
                             <p>January 2020</p>
@@ -359,7 +359,7 @@ const Listing = props => {
 
                 <div className='review'>
                     <div className='reviewer'>
-                        <img src='https://ca.slack-edge.com/T4JUEB3ME-ULKBTT25R-a540efc1845c-512' alt='Miguel'/>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-ULKBTT25R-a540efc1845c-512' alt='Ryan'/>
                         <div>
                             <p>Ryan</p>
                             <p>January 2020</p>
@@ -371,7 +371,7 @@ const Listing = props => {
 
                 <div className='review'>
                     <div className='reviewer'>
-                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UNK2RKMA9-4193e937c0d8-512' alt='Miguel'/>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UNK2RKMA9-4193e937c0d8-512' alt='Maggie'/>
                         <div>
                             <p>Maggie</p>
                             <p>January 2020</p>
@@ -383,7 +383,7 @@ const Listing = props => {
 
                 <div className='review'>
                     <div className='reviewer'>
-                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UMMLCL0BV-9cafc328dd53-512' alt='Miguel'/>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UMMLCL0BV-9cafc328dd53-512' alt='Nicole'/>
                         <div>
                             <p>Nicole</p>
                             <p>January 2020</p>
@@ -395,7 +395,7 @@ const Listing = props => {
 
                 <div className='review'>
                     <div className='reviewer'>
-                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UM3UYUP7D-d06d593b96c0-512' alt='Miguel'/>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UM3UYUP7D-d06d593b96c0-512' alt='Jean'/>
                         <div>
                             <p>Jean</p>
                             <p>January 2020</p>
@@ -407,13 +407,25 @@ const Listing = props => {
 
                 <div className='review'>
                     <div className='reviewer'>
-                        <img src='https://ca.slack-edge.com/T4JUEB3ME-ULVMAQ3CG-8a6b52348705-512' alt='Miguel'/>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-ULVMAQ3CG-8a6b52348705-512' alt='Stefano'/>
                         <div>
                             <p>Stefano</p>
                             <p>January 2020</p>
                         </div>
                     </div>
                     <p className='bio'>Beautiful place and location!! This place is completely modern. Outstanding place and value! We were close to shops and restaurants, but with absolute privacy and quiet when in the house or on the terrace. The view is a picture perfect postcard! Our room was restocked, and tidy everyday upon our return! Loved the jacuzzi! Everything was perfect! Until next time!</p>
+                </div>
+                <hr/>
+
+                <div className='review'>
+                    <div className='reviewer'>
+                        <img src='https://ca.slack-edge.com/T4JUEB3ME-UH09AEZHR-f47c2b29ac1d-48' alt='Tomas'/>
+                        <div>
+                            <p>Tomas</p>
+                            <p>January 2020</p>
+                        </div>
+                    </div>
+                    <p className='bio'>The pictures don't do justice. The view is absolutely amazing!!!</p>
                 </div>
                 <hr/>
             </section>
