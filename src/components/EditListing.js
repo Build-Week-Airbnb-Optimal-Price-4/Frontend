@@ -227,7 +227,7 @@ const EditListing = props => {
                     <div className='item'>
                         <label htmlFor='room_type'>Room Type</label>
                         <select name='room_type' value={input.room_type} onChange={onChange}>
-                            <option value='Private Room'>Private room</option>
+                            <option value='Private room'>Private room</option>
                             <option value='Entire home/apt'>Entire home/apt.</option>
                             <option value='Shared room'>Shared room</option>
                         </select>
@@ -273,7 +273,7 @@ const EditListing = props => {
 
                 <div className='buttons'>
                     <button type='button' onClick={() => props.toggleEditListingModal()}>Cancel</button>
-                    <button type='submit'>Add</button>
+                    <button type='submit'>Edit</button>
                 </div>
             </form>
         </EditListingContainer>
