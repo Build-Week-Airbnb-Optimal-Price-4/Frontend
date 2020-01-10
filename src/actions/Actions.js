@@ -30,7 +30,7 @@ export const addListing = input => dispatch => {
                 })
                 .catch(err => console.log('nested getListing error', err.response.data));
         })
-        .catch(error => console.log('addListing error', error.response.data));
+        .catch(error => console.log('addListing error', error));
 };
 
 export const deleteListing = id => dispatch => {
